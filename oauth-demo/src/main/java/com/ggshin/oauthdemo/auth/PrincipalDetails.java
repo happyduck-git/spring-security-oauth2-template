@@ -12,17 +12,27 @@ import java.util.Map;
 
 //Member entity를 Security와 맞물리게 하는 부분
 @Data
-public class PrincipalDetails implements UserDetails, OAuth2User {
+public class PrincipalDetails implements UserDetails, OAuth2User { //PrincipalDetails에 UserDetails와 OAuth2User를 implements하여 일반 로그인과 OAuth2 로그인이 별도로 처리되어 발생하는 문제 해결
 
     private Member member;
+    private Map<String, Object> attributes; //OAuth2 회원가입 기능 구현 위해 추가
+
+    //일반 로그인
     public PrincipalDetails(Member member) {
         this.member = member;
+    }
+
+    //OAuth 로그인
+    public PrincipalDetails(Member member, Map<String, Object> attributes) {
+        this.member = member;
+        this.attributes = attributes;
     }
 
 
     @Override
     public Map<String, Object> getAttributes() {
-        return null;
+//        return null; //null 리턴에서 attributes return으로 수정
+        return attributes;
     }
 
     @Override

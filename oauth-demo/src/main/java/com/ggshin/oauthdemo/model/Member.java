@@ -1,6 +1,7 @@
 package com.ggshin.oauthdemo.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class Member {
 
     @Id
@@ -25,12 +27,12 @@ public class Member {
     private String provider;
     private String providerId;
 
-    protected Member(){};
-
-    public Member(String username) {
+    @Builder
+    public Member(String username, String email, String role, String provider, String providerId) {
         this.username = username;
+        this.email = email;
+        this.role = role;
+        this.provider = provider;
+        this.providerId = providerId;
     }
-
-
-
 }
